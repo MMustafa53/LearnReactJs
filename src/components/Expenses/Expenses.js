@@ -18,6 +18,7 @@ const Expenses = (props) => {
                     title={item.title}
                     amount={item.amount}
                     date={item.date}
+                    title_change={Math.round(Math.random())}
                 />
             )
         })
@@ -26,7 +27,9 @@ const Expenses = (props) => {
         <div>
             <Card className="expenses">
                 <ExpensesFilter year={year} onYear={changeFilterYear}/>
-                {items}
+                {/*{items.length === 0 && <p>No items found</p>}*/}
+                {items.length === 0 ? (<p>No items found</p>): items}
+                {/*{items}*/}
             </Card>
         </div>
     );
