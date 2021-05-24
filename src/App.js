@@ -34,11 +34,8 @@ const App = () => {
   // );
 
   const addExpenseHandler = (expenseData) => {
-    const data = {
-      ...expenseData
-    }
     setExpenses(prevState => ([
-          ...prevState, data
+          expenseData, ...prevState
         ]
     ))
   }
