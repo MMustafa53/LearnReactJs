@@ -46,6 +46,7 @@ const ExpenseForm = (props) => {
             enteredAmount: '',
             enteredDate: ''
         })
+        props.callSetOpen()
     }
     // type submit olan butonda onClick yerine formda onSubmit kullanmak daha iyidir
     return (
@@ -80,6 +81,9 @@ const ExpenseForm = (props) => {
             </div>
             <div className='new-expense__actions'>
                 <button type='submit'>Add Expense</button>
+            </div>
+            <div className='new-expense__actions'>
+                <button onClick={props.callSetOpen}>Cancel</button>
             </div>
         </form>
     );
