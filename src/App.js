@@ -5,9 +5,10 @@ import Expenses from './components/Expenses/Expenses';
 import ExpenseControl from './components/Expenses/ExpenseControl';
 import './components/NewExpense/NewExpense.css';
 import AddUser from "./components/User/Users/AddUser";
-
+import UsersLists from "./components/User/Users/UsersLists";
 const App = () => {
     const [show, setShow] = useState(false)
+    const [users, setUsers] = useState([])
     const [expenses, setExpenses] = useState([
         {
             id: 'e1',
@@ -48,6 +49,9 @@ const App = () => {
     const callSetOpen = () => {
         setOpen(!open)
     }
+    const getusersHandler = (data) => {
+        setUsers([...users, ...data])
+    }
     return (
         (show ?
                 (<div>
@@ -62,7 +66,8 @@ const App = () => {
                 (
                     // <div className='new-expense'>
                     <div>
-                        <AddUser/>
+                        <AddUser getUser={getusersHandler}/>
+                        <UsersLists users={users}/>
                         <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
                     </div>)
         )
