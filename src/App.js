@@ -3,8 +3,11 @@ import React, {useState} from 'react';
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from './components/Expenses/Expenses';
 import ExpenseControl from './components/Expenses/ExpenseControl';
+import './components/NewExpense/NewExpense.css';
+import AddUser from "./components/User/Users/AddUser";
 
 const App = () => {
+    const [show, setShow] = useState(false)
     const [expenses, setExpenses] = useState([
         {
             id: 'e1',
@@ -43,15 +46,28 @@ const App = () => {
         ))
     }
     const callSetOpen = () => {
-      setOpen(!open)
+        setOpen(!open)
     }
     return (
-        <div>
-            {open ?
-                (<NewExpense addExpenses={addExpenseHandler} callSetOpen={callSetOpen}/>)
-                : <ExpenseControl callSetOpen={callSetOpen}/>}
-            <Expenses items={expenses}/>
-        </div>
+        (show ?
+                (<div>
+                    {open ?
+                        (<NewExpense addExpenses={addExpenseHandler} callSetOpen={callSetOpen}/>)
+                        : <ExpenseControl callSetOpen={callSetOpen}/>}
+                    <Expenses items={expenses}/>
+                    <div className='new-expense'>
+                        <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
+                    </div>
+                </div>) :
+                (
+                    // <div className='new-expense'>
+                    <div>
+                        <AddUser/>
+                        <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
+                    </div>)
+        )
+
+
     );
 }
 
