@@ -5,6 +5,10 @@ import Button from "../UI/Button";
 import ErrorModal from "./ErrorModal";
 
 const AddUser = props => {
+    const nameInputRef = useRef();
+    const ageInputRef = useRef();
+    const pwdInputRef = useRef();
+
     const [userName, setUserName] = useState('');
     const [age, setAge] = useState('');
     const [password, setPassword] = useState('');
@@ -44,6 +48,7 @@ const AddUser = props => {
 
     const addUserHandler = (event) => {
         event.preventDefault()
+        console.log(nameInputRef.current.value)  //state kullanmadan inputan veri alınıp değiştirilebilir güvenlik için stateler daha iyidir
         // console.log(event.target[0].value)
         // console.log(event.target["username"].value)
         if (userName.trim().length === 0 || password.trim().length === 0 || +age < 1) {
@@ -57,6 +62,7 @@ const AddUser = props => {
         props.getUser([{key: Math.random(), name: userName, age: age, password: password}])
         // resetFields(event) alanalrı resetlemek için 1. yöntem
         // 2. yöntem
+        nameInputRef.current.value = '' // setUserName('') ile aynı işi yapmakta
         setAge('')
         setUserName('')
         setPassword('')
@@ -71,17 +77,17 @@ const AddUser = props => {
                     <label htmlFor="username">
                         Username
                     </label>
-                    <input id="username" type="text" value={userName} onChange={userNameChangeHandler}/>
+                    <input id="username" type="text" value={userName} onChange={userNameChangeHandler} ref={nameInputRef}/>
 
                     <label htmlFor="age">
                         Age
                     </label>
-                    <input id="age" type="number" value={age} onChange={userAgeHandler}/>
+                    <input id="age" type="number" value={age} onChange={userAgeHandler} ref={ageInputRef}/>
 
                     <label htmlFor="pwd">
                         Password
                     </label>
-                    <input id="pwd" type="password" value={password} onChange={userPasswordHandler}/>
+                    <input id="pwd" type="password" value={password} onChange={userPasswordHandler} ref={pwdInputRef}/>
 
                     <Button type="submit">
                         Add User
