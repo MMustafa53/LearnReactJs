@@ -65,11 +65,11 @@ const App = () => {
                 </div>) :
                 (
                     // <div className='new-expense'>
-                    <div>
+                    <React.Fragment>
                         <AddUser getUser={getusersHandler}/>
                         <UsersLists users={users}/>
                         <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
-                    </div>)
+                    </React.Fragment>)
         )
 
 
