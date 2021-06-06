@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from './components/Expenses/Expenses';
@@ -37,14 +37,25 @@ const App = () => {
 
     const [open, setOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    useEffect(() => {
+        if(localStorage.getItem('isLoggedIn') === '1'){
+            setIsLoggedIn(true);
+        }
+        else{
+            setIsLoggedIn(false);
+        }
 
+
+    }, [])
     const loginHandler = (email, password) => {
         // We should of course check email and password
         // But it's just a dummy/ demo anyways
+        localStorage.setItem('isLoggedIn', '1');  // local storage a veri kayıt etme
         setIsLoggedIn(true);
     };
 
     const logoutHandler = () => {
+        localStorage.removeItem('isLoggedIn')
         setIsLoggedIn(false);
     };
     // return React.createElement(
