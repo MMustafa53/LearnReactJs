@@ -6,6 +6,10 @@ import ExpenseControl from './components/Expenses/ExpenseControl';
 import './components/NewExpense/NewExpense.css';
 import AddUser from "./components/User/Users/AddUser";
 import UsersLists from "./components/User/Users/UsersLists";
+import MainHeader from "./components/LoginApp/components/MainHeader/MainHeader";
+import Login from "./components/LoginApp/components/Login/Login";
+import Home from "./components/LoginApp/components/Home/Home";
+
 const App = () => {
     const [show, setShow] = useState(false)
     const [users, setUsers] = useState([])
@@ -32,7 +36,17 @@ const App = () => {
     ]);
 
     const [open, setOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    const loginHandler = (email, password) => {
+        // We should of course check email and password
+        // But it's just a dummy/ demo anyways
+        setIsLoggedIn(true);
+    };
+
+    const logoutHandler = () => {
+        setIsLoggedIn(false);
+    };
     // return React.createElement(
     //   'div',
     //   {},
@@ -64,12 +78,22 @@ const App = () => {
                     </div>
                 </div>) :
                 (
+                    // User Add show component
                     // <div className='new-expense'>
+                    // <React.Fragment>
+                    //     <AddUser getUser={getusersHandler}/>
+                    //     <UsersLists users={users}/>
+                    //     <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
+                    // </React.Fragment>
                     <React.Fragment>
-                        <AddUser getUser={getusersHandler}/>
-                        <UsersLists users={users}/>
+                        <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+                        <main>
+                            {!isLoggedIn && <Login onLogin={loginHandler} />}
+                            {isLoggedIn && <Home onLogout={logoutHandler} />}
+                        </main>
                         <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
-                    </React.Fragment>)
+                    </React.Fragment>
+                )
         )
 
 
