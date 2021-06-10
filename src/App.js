@@ -9,6 +9,7 @@ import UsersLists from "./components/User/Users/UsersLists";
 import MainHeader from "./components/LoginApp/components/MainHeader/MainHeader";
 import Login from "./components/LoginApp/components/Login/Login";
 import Home from "./components/LoginApp/components/Home/Home";
+import AuthContext from "./store/auth-context";
 
 const App = () => {
     const [show, setShow] = useState(false)
@@ -38,10 +39,9 @@ const App = () => {
     const [open, setOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     useEffect(() => {
-        if(localStorage.getItem('isLoggedIn') === '1'){
+        if (localStorage.getItem('isLoggedIn') === '1') {
             setIsLoggedIn(true);
-        }
-        else{
+        } else {
             setIsLoggedIn(false);
         }
 
@@ -96,14 +96,16 @@ const App = () => {
                     //     <UsersLists users={users}/>
                     //     <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
                     // </React.Fragment>
-                    <React.Fragment>
-                        <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+                    // <React.Fragment>
+                    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, onLogout: logoutHandler}}>
+                        <MainHeader />
                         <main>
-                            {!isLoggedIn && <Login onLogin={loginHandler} />}
-                            {isLoggedIn && <Home onLogout={logoutHandler} />}
+                            {!isLoggedIn && <Login onLogin={loginHandler}/>}
+                            {isLoggedIn && <Home onLogout={logoutHandler}/>}
                         </main>
                         <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
-                    </React.Fragment>
+                    </AuthContext.Provider>
+                    // </React.Fragment>
                 )
         )
 
