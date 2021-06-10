@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from './components/Expenses/Expenses';
@@ -55,7 +55,6 @@ const App = () => {
     };
 
     const logoutHandler = () => {
-        localStorage.removeItem('isLoggedIn')
         setIsLoggedIn(false);
     };
     // return React.createElement(
@@ -64,6 +63,8 @@ const App = () => {
     //   React.createElement('h2', {}, "Let's get started!"),
     //   React.createElement(Expenses, { items: expenses })
     // );
+
+    const contexData = useContext(AuthContext)
 
     const addExpenseHandler = (expenseData) => {
         setExpenses(prevState => ([
@@ -96,16 +97,16 @@ const App = () => {
                     //     <UsersLists users={users}/>
                     //     <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
                     // </React.Fragment>
-                    // <React.Fragment>
-                    <AuthContext.Provider value={{isLoggedIn: isLoggedIn, onLogout: logoutHandler}}>
+                    <React.Fragment>
+                    {/* <AuthContext.Provider value={{isLoggedIn: isLoggedIn, onLogout: logoutHandler}}>*/}
                         <MainHeader />
                         <main>
-                            {!isLoggedIn && <Login onLogin={loginHandler}/>}
-                            {isLoggedIn && <Home onLogout={logoutHandler}/>}
+                            {!contexData.isLoggedIn && <Login />}
+                            {contexData.isLoggedIn && <Home />}
                         </main>
                         <button onClick={() => setShow(!show)}> CHANGE PAGE</button>
-                    </AuthContext.Provider>
-                    // </React.Fragment>
+                    {/* </AuthContext.Provider>*/}
+                    </React.Fragment>
                 )
         )
 
